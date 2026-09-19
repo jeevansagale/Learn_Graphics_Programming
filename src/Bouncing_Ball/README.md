@@ -1,64 +1,76 @@
 # Bouncing Ball
 
-So this was to simulate bounciness of a ball. Using some physics concepts.
+So this was to simulate the bounciness of a ball using some physics concepts.
 
-<video src="Assets/record.mp4" controls width="640"></video>    
-
-
+![Bouncing Ball Demo](Assets/record.gif)
 
 ## Concepts
 
-### - **Accelaration due to gravity [g]**: 
+### - **Acceleration due to Gravity [g]**
+
 The constant acceleration gained by an object falling freely toward a massive body.
 
-### - **Coefficient Of Restitution [e]**: 
-1. Its the elatiscity of object after collision. Bounciness you can say. 
-2. **e = 1** indicates Perfect elatisity, i.e,. no enery is waster after collision.
-3. **e = 0** indicates Perfect plastic, i.e,. All enery is used, it stays at bottom.
-4. **0 < e < 1** indicates Inelastic, i.e., some enery is lost after collision, like head and sound,etc.
+### - **Coefficient of Restitution [e]**
+
+1. It represents the elasticity of an object after a collision, or simply, its **bounciness**.
+2. **e = 1** indicates **Perfect Elasticity**, i.e., no energy is lost after the collision.
+3. **e = 0** indicates a **Perfectly Inelastic Collision**, i.e., the object does not bounce after the collision.
+4. **0 < e < 1** indicates an **Inelastic Collision**, i.e., some energy is lost after the collision, such as through heat, sound, deformation, etc.
 5. **The Standard Formula**
-* $$e = \frac{v_f}{v_i}
-<br>
+
+$$
+e = \frac{|v_f|}{|v_i|}
+$$
+
 * **$v_f$** = Final velocity (speed **after** collision)
 * **$v_i$** = Initial velocity (speed **before** collision)
 
+### - **Air Drag [c]**
 
-### - **Air Drag [c]**:
-1. Friction that acts when a object falls through air is called **Air Drag [Air Resistance]**.
-2. The Drag Coefficient $C_{d}$ is a unitless number that measures how aerodynamic an object is.
+1. The frictional force that acts when an object moves through air is called **Air Drag [Air Resistance]**.
+2. The Drag Coefficient $C_d$ is a dimensionless number that measures how much aerodynamic resistance an object experiences.
 
-| $C_{d}$ value | Effect |
-|:--:|:--:|
-| $\approx$ 0.04 | Most Aerodynamic |
-| $\approx$ 0.47 | Moderate Resistance |
-| $\approx$ 1.05 | Less Aerodynamic |
-
+|   $C_d$ value  | Effect              |
+| :------------: | :------------------ |
+| $\approx 0.04$ | Highly aerodynamic  |
+| $\approx 0.47$ | Moderate resistance |
+| $\approx 1.05$ | Less aerodynamic    |
 
 ## Calculation
-We First calculate 
 
-- Force acting on Y-Axis 
-<br>
+We first calculate:
 
-$F_y = mass * g$ 
-<br>
+* Force acting on the Y-axis:
 
-- Then we subtract velocity multiplied by air resistance
-<br>
-$Force_x = Force_x - (ball.velocity_x * c_d)$
-<br>
-$Force_y = Force_y - (ball.velocity_y * cd)$
+$$
+F_y = m \times g
+$$
 
-- By Newtons Second law :
-<br>
-$a_y = F_y / m$
-<br>
-$a_x = F_x / m$
+* Then we subtract velocity multiplied by air resistance:
+
+$$
+F_x = F_x - (v_x \times C_d)
+$$
+
+$$
+F_y = F_y - (v_y \times C_d)
+$$
+
+* By Newton's Second Law:
+
+$$
+a_y = \frac{F_y}{m}
+$$
+
+$$
+a_x = \frac{F_x}{m}
+$$
 
 ## Controls
-| Key  | Function                       |
-| :--: | :--:                           |
-| P    | Show Debug Screen              |
-| R    | Reset Stats                    |
-| Esc  | Exit                           |
-| Mouse Touch | Teleports the ball there|
+
+|       Key       | Function                            |
+| :-------------: | :---------------------------------- |
+|      **P**      | Show Debug Screen                   |
+|      **R**      | Reset Stats                         |
+|     **Esc**     | Exit                                |
+| **Mouse Touch** | Teleports the ball to that position |
