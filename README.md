@@ -30,15 +30,15 @@ Learn_Graphics
 ├── README.md
 └── src
     ├── Bouncing_Ball
+    │   ├── Assets
+    │   │   └── record.mp4
     │   ├── Bounce
     │   ├── Bounce.cpp
-    │   ├── index.html
-    │   ├── index.js
-    │   ├── index.wasm
     │   └── README.md
     └── Rotating_2D_Ball
         ├── README.md
         └── Rotation.cpp
+
 ```
 
 ### Author
