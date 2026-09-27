@@ -96,7 +96,7 @@ int main(){
 
     BeginDrawing();
     ClearBackground(BLACK);
-       
+         
       Draw(ball , balls);
 
     EndDrawing();
