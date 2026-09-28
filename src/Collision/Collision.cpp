@@ -6,6 +6,7 @@
 
 
 #include "raylib.h"
+#include <cmath>
 #include <iostream>
 #include <vector>
 #include "raymath.h"
@@ -45,7 +46,7 @@ void Initialize(vector<Ball> &balls , int count){
     balls.emplace_back(Ball{
       {static_cast<float>(GetRandomValue(10, Config::Width)) , static_cast<float>(GetRandomValue(10, Config::Height))},
       {static_cast<float>(GetRandomValue(200, 400))         , static_cast<float>(GetRandomValue(200, 400))},
-      5.0f,
+      15.0f,
       {
         static_cast<unsigned char>(GetRandomValue(10, 255)),
         static_cast<unsigned char>(GetRandomValue(10, 255)),
@@ -57,9 +58,58 @@ void Initialize(vector<Ball> &balls , int count){
 }
 
 
-// Add Physics
-void Update(vector<Ball> &balls){
+// Collisions 
+void GetCollision(vector<Ball> &balls , Ball &player){
+  for(auto &ball : balls){
+    float dx = ball.Position.x - player.Position.x;
+    float dy = ball.Position.y - player.Position.y;
+    float dist = std::sqrtf(dx*dx + dy*dy);
+    float rsum = (ball.radius + player.radius);
 
+    if(dist <= rsum){
+      float nx = dx / dist;
+      float ny = dy / dist;
+
+      float dot = ball.Velocity.x * nx + ball.Velocity.y * ny;
+      ball.Velocity.x -= dot * 2.0f * nx;
+      ball.Velocity.y -= dot * 2.0f * ny;
+
+      float overlap = rsum - dist;
+      ball.Position.x += nx * overlap;
+      ball.Position.y += ny * overlap;
+
+      break;
+    }
+  }
+}
+
+
+// Add Physics
+void Update(vector<Ball> &balls , Ball &player){
+  double dt = GetFrameTime();
+  const float offset = 30;
+  Vector2 dir = {1 , 1};
+
+  for(auto &ball : balls){
+    ball.Position.x += ball.Velocity.x * dt * dir.x;
+    ball.Position.y += ball.Velocity.y * dt * dir.y;
+    if(ball.Position.y >= Config::Height){
+      dir.y = -1;
+      ball.Position.y = Config::Height;
+    }
+    if(ball.Position.y <= 0){
+      dir.y = 1;
+      ball.Position.y = 0;
+    }
+    if(ball.Position.x >= Config::Width){
+      dir.x = -1;
+      ball.Position.x = Config::Width;
+    }
+    if(ball.Position.x <= 0){
+      dir.x = 1;
+      ball.Position.x = 0;
+    }
+  }
 }
 
 
@@ -93,6 +143,8 @@ int main(){
 
   while(!WindowShouldClose()){
     Move(ball);
+    Update(balls , ball);
+    GetCollision(balls , ball);
 
     BeginDrawing();
     ClearBackground(BLACK);
