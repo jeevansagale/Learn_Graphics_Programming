@@ -67,8 +67,9 @@ void GetCollision(vector<Ball> &balls , Ball &player){
     float rsum = (ball.radius + player.radius);
 
     if(dist <= rsum){
-      float nx = dx / dist;
-      float ny = dy / dist;
+
+      float nx = dx / ((dist == 0.0) ? 1 : dist);
+      float ny = dy / ((dist == 0.0) ? 1 : dist);
 
       float dot = ball.Velocity.x * nx + ball.Velocity.y * ny;
       ball.Velocity.x -= dot * 2.0f * nx;
@@ -88,26 +89,29 @@ void GetCollision(vector<Ball> &balls , Ball &player){
 void Update(vector<Ball> &balls , Ball &player){
   double dt = GetFrameTime();
   const float offset = 30;
-  Vector2 dir = {1 , 1};
 
   for(auto &ball : balls){
-    ball.Position.x += ball.Velocity.x * dt * dir.x;
-    ball.Position.y += ball.Velocity.y * dt * dir.y;
-    if(ball.Position.y >= Config::Height){
-      dir.y = -1;
-      ball.Position.y = Config::Height;
+    ball.Position.x += ball.Velocity.x * dt;
+    ball.Position.y += ball.Velocity.y * dt;
+
+    if(ball.Position.y + ball.radius >= Config::Height){
+      ball.Velocity.y *= -1;
+      ball.Position.y = Config::Height - ball.radius;
     }
-    if(ball.Position.y <= 0){
-      dir.y = 1;
-      ball.Position.y = 0;
+
+    if(ball.Position.y - ball.radius <= 0){
+      ball.Velocity.y *= -1;
+      ball.Position.y = ball.radius;
     }
-    if(ball.Position.x >= Config::Width){
-      dir.x = -1;
-      ball.Position.x = Config::Width;
+
+    if(ball.Position.x + ball.radius >= Config::Width){
+      ball.Velocity.x *= -1;
+      ball.Position.x = Config::Width - ball.radius;
     }
-    if(ball.Position.x <= 0){
-      dir.x = 1;
-      ball.Position.x = 0;
+
+    if(ball.Position.x - ball.radius <= 0){
+      ball.Velocity.x *= -1;
+      ball.Position.x = ball.radius;
     }
   }
 }
@@ -138,8 +142,8 @@ int main(){
   Ball ball({20 , 20} , {200 , 200} , 30 , WHITE);
   
   vector<Ball> balls;
-  balls.reserve(100);
-  Initialize(balls , 100);
+  balls.reserve(50);
+  Initialize(balls , 50);
 
   while(!WindowShouldClose()){
     Move(ball);
