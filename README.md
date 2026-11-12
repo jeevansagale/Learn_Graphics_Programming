@@ -1,23 +1,46 @@
 # Learning Graphics Programming
 
-A collection of small C++ experiments built with [Raylib](https://www.raylib.com/). Each module explores a graphics or programming concept through a focused implementation.
+A collection of small C++ experiments built with [Raylib](https://www.raylib.com/). The repository focuses on learning graphics through implementation: motion, vectors, collision detection, 3D positioning, and sprite animation.
 
 ## Experiments
 
-| Module | Concepts | Source | Preview |
-|---|---|---|---|
-| Bouncing Ball | Gravity, velocity, air drag, coefficient of restitution | [Bounce.cpp](src/Bouncing_Ball/Bounce.cpp) | [GIF](src/Bouncing_Ball/Assets/record.gif) |
-| 2D Rotation | Trigonometry and rotation transforms | [Rotation.cpp](src/Rotating_2D_Ball/Rotation.cpp) | — |
-| Collision and Player Control | Keyboard input and collision detection | [Collision.cpp](src/Collision/Collision.cpp) | [Image](src/Collision/Assets/image.png) |
-| Sprite Animation | Sprite sheets and frame-based animation | [animation.cpp](src/Animation/animation.cpp) | — |
+### Bouncing Ball
 
-## Concepts
+A physics experiment covering gravity, velocity, air resistance, and the coefficient of restitution.
 
-- Applying vectors and trigonometry to movement and rotation.
-- Simulating basic motion with gravity and drag.
-- Handling collisions and player input.
-- Working with sprite sheets and animation frames.
-- Translating mathematical concepts into real-time graphics.
+![Bouncing ball simulation](src/Bouncing_Ball/Assets/record.gif)
+
+Source: [Bounce.cpp](src/Bouncing_Ball/Bounce.cpp) · [Experiment notes](src/Bouncing_Ball/README.md)
+
+### 3D Orbital Motion
+
+A simple 3D scene that uses trigonometry to move an Earth sphere around a stationary Sun. A free camera allows the scene to be explored from different angles.
+
+Source: [Rotation.cpp](src/Rotating_2D_Ball/Rotation.cpp) · [Experiment notes](src/Rotating_2D_Ball/README.md)
+
+### Collision and Player Control
+
+A small Raylib program exploring keyboard-based movement and collision detection.
+
+![Collision experiment](src/Collision/Assets/image.png)
+
+Source: [Collision.cpp](src/Collision/Collision.cpp) · [Experiment notes](src/Collision/README.md)
+
+### Sprite Animation
+
+A frame-based animation experiment that loads an idle sprite sequence and advances through frames over time.
+
+![Sprite animation frame](src/Animation/Assets/Sprites/Eleonore/Idle/Idle1.png)
+
+Source: [animation.cpp](src/Animation/animation.cpp) · [Asset credits](src/Animation/README.md)
+
+## Concepts Explored
+
+- Vector mathematics and trigonometric motion.
+- Basic physics simulation and collision response.
+- 2D movement and 3D positioning.
+- Camera movement and real-time rendering.
+- Sprite-sheet and frame-based animation.
 
 ## Repository Structure
 
@@ -44,14 +67,15 @@ Learn_Graphics_Programming/
 ## Build Requirements
 
 - A C++ compiler.
-- Raylib installed and configured for your platform.
+- Raylib configured for your platform.
+- Raygui headers for the orbital-motion experiment.
 
-The experiments are separate programs rather than one combined application. Configure Raylib for your compiler, then build the relevant source file. This repository does not currently provide a shared cross-platform build configuration.
+Each folder contains an independent program. Build and run one experiment at a time. This repository does not currently include a shared CMake or Make build configuration, so compiler and linker settings need to be configured for the local Raylib installation. Run each program from its corresponding directory when it loads assets through relative paths.
 
 ## Asset Credits
 
-The sprite assets used by the animation experiment are credited in [src/Animation/README.md](src/Animation/README.md).
+The sprite artwork used in the animation experiment belongs to its original creators. Attribution and source links are documented in [src/Animation/README.md](src/Animation/README.md).
 
 ---
 
-This is an actively evolving learning repository; implementations and experiments may change as I work through graphics programming fundamentals.
+This repository is a learning workspace. Experiments and implementations may change as graphics programming concepts are explored in more depth.
