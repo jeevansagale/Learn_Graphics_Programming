@@ -1,30 +1,31 @@
-# Collision and Player control
+# Collision and Player Control
 
-![Image](Assets/image.png)
+A small C++ and Raylib experiment exploring player movement, keyboard input, and collision detection.
 
-## About 
+## Preview
 
-- Simple player control and Collision detection using raylib and C++
+![Collision experiment](Assets/image.png)
 
-- Used simple physics to detect player and the balls
+## Controls
 
-### Controls
-|Action | Key  |
-|:----: | :---:|
-|Up     | W    |
-|Down   | S    |
-|Left   | A    |
-|Right  | D    |
+| Action | Key |
+|---|---|
+| Move up | W |
+| Move down | S |
+| Move left | A |
+| Move right | D |
 
-<br>
+## Concepts
 
-### Architecture
-```
-Collision
-├── Assets
-│   └── image.png
-├── Collision
-├── Collision.cpp
-└── README.md
-```
+- Reading keyboard input through Raylib.
+- Updating a player's position in a real-time game loop.
+- Checking collisions between the player and scene objects.
+- Keeping movement and drawing logic organized.
 
+## Source
+
+[Collision.cpp](Collision.cpp)
+
+## Build Requirements
+
+A C++ compiler and a Raylib installation configured for your platform are required. This folder does not contain a standalone build script.
