@@ -1,76 +1,66 @@
-# Bouncing Ball
+# Bouncing Ball Physics Simulation
 
-So this was to simulate the bounciness of a ball using some physics concepts.
+A C++ and Raylib experiment that simulates a bouncing ball using a small set of classical mechanics concepts.
 
-![Bouncing Ball Demo](Assets/record.gif)
+## Preview
+
+![Bouncing ball simulation](Assets/record.gif)
 
 ## Concepts
 
-### - **Acceleration due to Gravity [g]**
+### Gravity
 
-The constant acceleration gained by an object falling freely toward a massive body.
+Gravity applies a downward acceleration to the ball. In a simple simulation, the vertical velocity is updated over time:
 
-### - **Coefficient of Restitution [e]**
+```text
+velocity_y += gravity * delta_time
+position_y += velocity_y * delta_time
+```
 
-1. It represents the elasticity of an object after a collision, or simply, its **bounciness**.
-2. **e = 1** indicates **Perfect Elasticity**, i.e., no energy is lost after the collision.
-3. **e = 0** indicates a **Perfectly Inelastic Collision**, i.e., the object does not bounce after the collision.
-4. **0 < e < 1** indicates an **Inelastic Collision**, i.e., some energy is lost after the collision, such as through heat, sound, deformation, etc.
-5. **The Standard Formula**
+### Coefficient of Restitution
 
-$$
-e = \frac{|v_f|}{|v_i|}
-$$
+The coefficient of restitution describes how much relative speed remains after a collision along the collision normal.
 
-* **$v_f$** = Final velocity (speed **after** collision)
-* **$v_i$** = Initial velocity (speed **before** collision)
+For a simple ball bouncing against a stationary horizontal surface:
 
-### - **Air Drag [c]**
+```text
+restitution = speed_after_collision / speed_before_collision
+```
 
-1. The frictional force that acts when an object moves through air is called **Air Drag [Air Resistance]**.
-2. The Drag Coefficient $C_d$ is a dimensionless number that measures how much aerodynamic resistance an object experiences.
+- `e = 1`: perfectly elastic collision in the idealized model.
+- `e = 0`: perfectly inelastic collision in the idealized model.
+- `0 < e < 1`: some kinetic energy is lost during impact.
 
-|   $C_d$ value  | Effect              |
-| :------------: | :------------------ |
-| $\approx 0.04$ | Highly aerodynamic  |
-| $\approx 0.47$ | Moderate resistance |
-| $\approx 1.05$ | Less aerodynamic    |
+### Air Resistance
 
-## Calculation
+The simulation also explores drag as a force opposing motion. A simplified linear-drag model is proportional to velocity:
 
-We first calculate:
+```text
+F_drag = -c * velocity
+```
 
-* Force acting on the Y-axis:
-
-$$
-F_y = m \times g
-$$
-
-* Then we subtract velocity multiplied by air resistance:
-
-$$
-F_x = F_x - (v_x \times C_d)
-$$
-
-$$
-F_y = F_y - (v_y \times C_d)
-$$
-
-* By Newton's Second Law:
-
-$$
-a_y = \frac{F_y}{m}
-$$
-
-$$
-a_x = \frac{F_x}{m}
-$$
+This is a simplified model; real aerodynamic drag is generally dependent on air density, drag coefficient, reference area, and the square of speed.
 
 ## Controls
 
-|       Key       | Function                            |
-| :-------------: | :---------------------------------- |
-|      **P**      | Show Debug Screen                   |
-|      **R**      | Reset Stats                         |
-|     **Esc**     | Exit                                |
-| **Mouse Touch** | Teleports the ball to that position |
+| Input | Action |
+|---|---|
+| P | Toggle debug screen |
+| R | Reset statistics |
+| Mouse click | Move the ball to the clicked position |
+| Esc | Exit |
+
+## Source
+
+[View the implementation](Bounce.cpp)
+
+## Build Requirements
+
+- C++ compiler.
+- Raylib configured for your platform.
+
+This experiment does not currently include a dedicated CMake or Make build configuration. Configure Raylib's include and linker settings for your compiler, then build `Bounce.cpp`.
+
+## Learning Notes
+
+This experiment is intended to make motion and collision concepts visible through a real-time simulation. The equations above describe the concepts; the exact implementation should be read in the source file.
